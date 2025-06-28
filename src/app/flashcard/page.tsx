@@ -10,7 +10,7 @@ type Flashcard = {
 };
 
 export default function FlashcardsPage() {
-  const [, setTopic] = useState('');
+  const [topic, setTopic] = useState('');
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(false);
 
