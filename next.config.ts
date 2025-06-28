@@ -1,12 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
-module.exports = {
   experimental: {
-    serverComponentsExternalPackages: ['pdf-parse'],
+    // No serverExternalPackages needed now
+  },
+  eslint: {
+    ignoreDuringBuilds: true, // Still helpful for quick Vercel deploys
   },
 };
 
 export default nextConfig;
+

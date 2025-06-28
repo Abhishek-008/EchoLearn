@@ -1,11 +1,17 @@
 'use client';
+
 import React, { useState } from 'react';
 import MicInput from '@/components/MicInput';
 import { getExplanation } from '@/lib/groq';
 
+type Flashcard = {
+  front: string;
+  back: string;
+};
+
 export default function FlashcardsPage() {
-  const [topic, setTopic] = useState('');
-  const [flashcards, setFlashcards] = useState<any[]>([]);
+  const [, setTopic] = useState('');
+  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(false);
 
   const generateFlashcards = async (input: string) => {
@@ -43,7 +49,7 @@ Respond only with valid JSON array, no extra text.
       });
 
       const data = await res.json();
-      const cards = JSON.parse(data.choices?.[0]?.message?.content?.trim() || '[]');
+      const cards: Flashcard[] = JSON.parse(data.choices?.[0]?.message?.content?.trim() || '[]');
       setFlashcards(cards);
     } catch (err) {
       console.error(err);
@@ -104,4 +110,3 @@ Respond only with valid JSON array, no extra text.
     </main>
   );
 }
-

@@ -6,9 +6,15 @@ import { getExplanation, getQuiz } from '@/lib/groq';
 import Quiz from '@/components/Quiz';
 import { motion } from 'framer-motion';
 
+type QuizItem = {
+  question: string;
+  options: string[];
+  answer: string;
+};
+
 export default function LearnPage() {
   const [explanation, setExplanation] = useState('');
-  const [quiz, setQuiz] = useState<any[]>([]);
+  const [quiz, setQuiz] = useState<QuizItem[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (input: string, tone: string, speed: string) => {
