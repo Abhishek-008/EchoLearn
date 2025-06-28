@@ -10,7 +10,7 @@ export default function Navbar() {
 
       <div className="flex gap-6 text-gray-700 font-medium">
         <Link href="/learn" className="hover:text-black transition">Learn</Link>
-        <Link href="/flashcards" className="hover:text-black transition">Flashcards</Link>
+        <Link href="/flashcard" className="hover:text-black transition">Flashcards</Link>
         <Link href="/about" className="hover:text-black transition">About</Link>
       </div>
     </nav>
