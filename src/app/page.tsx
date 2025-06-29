@@ -1,109 +1,100 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
 import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
-import aiAnimation from '@/app/animations/ai.json'; // adjust if needed
+import aiAnimation from '@/app/animations/ai1.json';
+import { SignInButton, SignUpButton } from '@clerk/nextjs';
 
-export default function HomePage() {
+export default function LandingPage() {
   const router = useRouter();
+  const { isSignedIn, isLoaded } = useUser();
 
-  const features = [
-    {
-      title: '🎤 Voice-first Input',
-      description: 'Speak your topic and get an explanation in your tone and speed.',
-      color: 'bg-blue-100',
-    },
-    {
-      title: '🧠 Personalized Quiz',
-      description: 'Instant MCQs based on what you just learned.',
-      color: 'bg-orange-100',
-    },
-    {
-      title: '⚡ Smart Feedback',
-      description: 'Score and learn from mistakes immediately.',
-      color: 'bg-purple-100',
-    },
-  ];
+  // 🔁 Redirect signed-in users to /home
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      router.replace('/home'); // avoids landing page in history
+    }
+  }, [isLoaded, isSignedIn, router]);
+
+  // ⏳ While Clerk is loading
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white text-gray-500 text-lg">
+        Loading EchoLearn...
+      </div>
+    );
+  }
+
+  // ✅ Render landing page only if not signed in
+  if (isSignedIn) return null;
 
   return (
-    <main className="bg-[#fefefe] min-h-screen flex flex-col items-center justify-start text-center px-6 pt-16 relative overflow-hidden">
-      {/* Animated AI Illustration */}
-      <div className="w-[300px] md:w-[400px] mx-auto z-10 mb-6">
-        <Lottie animationData={aiAnimation} loop={true} />
-      </div>
+    <main className="bg-gradient-to-br from-gray-50 via-white to-gray-200 min-h-screen flex flex-col items-center justify-start text-center px-6 pt-20 relative overflow-hidden">
+      {/* AI Animation */}
+      <motion.div
+        className="w-[280px] sm:w-[360px] md:w-[420px] mx-auto mb-6 z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <Lottie animationData={aiAnimation} loop />
+      </motion.div>
 
+      {/* Headline */}
       <motion.h1
-        className="text-5xl font-bold text-gray-900 max-w-2xl z-10"
-        initial={{ opacity: 0, y: -20 }}
+        className="text-4xl sm:text-5xl font-extrabold text-gray-900 max-w-2xl leading-tight z-10"
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
-        EchoLearn — Personalized AI Learning
+        Welcome to EchoLearn
       </motion.h1>
 
+      {/* Description */}
       <motion.p
-        className="text-gray-600 max-w-xl mt-4 text-lg z-10"
+        className="text-gray-700 text-base sm:text-lg max-w-xl mt-4 z-10"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        transition={{ delay: 0.2, duration: 0.7 }}
       >
-        Learn any topic your way — through speech, explanation, and quizzes.
+        Discover a smarter way to learn using voice, AI-powered explanations, and adaptive quizzes.
       </motion.p>
 
-      <motion.button
-        onClick={() => router.push('/learn')}
-        className="mt-6 bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-neutral-900 transition z-10"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      {/* Sign In / Sign Up Buttons */}
+      <motion.div
+        className="mt-8 z-10 flex flex-col sm:flex-row gap-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
       >
-        🚀 Start Learning
-      </motion.button>
-
-      {/* Feature Cards */}
-      <motion.div
-        className="flex flex-col sm:flex-row gap-4 mt-16 z-10"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: {
-            transition: {
-              staggerChildren: 0.2,
-            },
-          },
-        }}
-      >
-        {features.map((feature, i) => (
-          <motion.div
-            key={i}
-            className={`${feature.color} rounded-xl shadow-md p-6 w-[260px]`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="font-semibold text-lg mb-2 text-gray-800">{feature.title}</h3>
-            <p className="text-gray-600 text-sm">{feature.description}</p>
-          </motion.div>
-        ))}
+        <SignInButton mode="modal">
+          <button className="bg-black text-white px-6 py-3 rounded-lg text-base hover:bg-neutral-900 transition">
+            Sign In
+          </button>
+        </SignInButton>
+        <SignUpButton mode="modal">
+          <button className="bg-white border border-black text-black px-6 py-3 rounded-lg text-base hover:bg-gray-100 transition">
+            Create Account
+          </button>
+        </SignUpButton>
       </motion.div>
 
-      {/* Floating shapes (animated decoration) */}
+      {/* Floating Decorations */}
       <motion.div
-        className="absolute top-[-30px] left-[10%] w-24 h-24 bg-orange-200 rotate-12 rounded-full opacity-50 z-0"
+        className="absolute top-[5%] left-[10%] w-24 h-24 bg-orange-200 rotate-12 rounded-full opacity-40 z-0"
         animate={{ y: [0, 20, 0] }}
-        transition={{ repeat: Infinity, duration: 4 }}
+        transition={{ repeat: Infinity, duration: 6 }}
       />
       <motion.div
-        className="absolute bottom-[-40px] right-[10%] w-32 h-32 bg-purple-200 rotate-45 rounded-2xl opacity-40 z-0"
+        className="absolute bottom-[5%] right-[10%] w-32 h-32 bg-purple-200 rotate-45 rounded-2xl opacity-30 z-0"
         animate={{ y: [0, -20, 0] }}
         transition={{ repeat: Infinity, duration: 5 }}
       />
       <motion.div
-        className="absolute top-[50%] left-[-30px] w-20 h-20 bg-blue-200 rotate-6 rounded-md opacity-30 z-0"
+        className="absolute top-[45%] left-[0%] w-20 h-20 bg-blue-200 rotate-6 rounded-md opacity-30 z-0"
         animate={{ y: [0, 15, 0] }}
         transition={{ repeat: Infinity, duration: 3 }}
       />

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.23.1",
     "formidable": "^3.5.4",
     "framer-motion": "^12.19.2",
     "lottie-react": "^2.4.1",
