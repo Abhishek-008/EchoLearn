@@ -10,6 +10,11 @@ export default function HomePage() {
 
   const features = [
     {
+    title: ' AI-Powered Roadmap',
+    description: 'Generate a visual learning roadmap tailored to your level and topic.',
+    color: 'bg-green-100', 
+  },
+    {
       title: 'Voice-first Input',
       description: 'Speak your topic and get an explanation in your tone and speed.',
       color: 'bg-blue-100',
