@@ -3,24 +3,24 @@
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
-import aiAnimation from '@/app/animations/ai.json'; // adjust if needed
+import aiAnimation from '@/app/animations/ai.json';
 
 export default function HomePage() {
   const router = useRouter();
 
   const features = [
     {
-      title: '🎤 Voice-first Input',
+      title: 'Voice-first Input',
       description: 'Speak your topic and get an explanation in your tone and speed.',
       color: 'bg-blue-100',
     },
     {
-      title: '🧠 Personalized Quiz',
+      title: 'Personalized Quiz',
       description: 'Instant MCQs based on what you just learned.',
       color: 'bg-orange-100',
     },
     {
-      title: '⚡ Smart Feedback',
+      title: 'Smart Feedback',
       description: 'Score and learn from mistakes immediately.',
       color: 'bg-purple-100',
     },
@@ -28,11 +28,12 @@ export default function HomePage() {
 
   return (
     <main className="bg-[#fefefe] min-h-screen flex flex-col items-center justify-start text-center px-6 pt-16 relative overflow-hidden">
-      {/* Animated AI Illustration */}
+      {/* AI Animation */}
       <div className="w-[300px] md:w-[400px] mx-auto z-10 mb-6">
-        <Lottie animationData={aiAnimation} loop={true} />
+        <Lottie animationData={aiAnimation} loop />
       </div>
 
+      {/* Title */}
       <motion.h1
         className="text-5xl font-bold text-gray-900 max-w-2xl z-10"
         initial={{ opacity: 0, y: -20 }}
@@ -42,6 +43,7 @@ export default function HomePage() {
         EchoLearn — Personalized AI Learning
       </motion.h1>
 
+      {/* Description */}
       <motion.p
         className="text-gray-600 max-w-xl mt-4 text-lg z-10"
         initial={{ opacity: 0, y: 10 }}
@@ -51,19 +53,34 @@ export default function HomePage() {
         Learn any topic your way — through speech, explanation, and quizzes.
       </motion.p>
 
-      <motion.button
-        onClick={() => router.push('/learn')}
-        className="mt-6 bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-neutral-900 transition z-10"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
-        🚀 Start Learning
-      </motion.button>
+      {/* Action Buttons */}
+      <div className="mt-6 flex flex-col sm:flex-row gap-4 z-10">
+        <motion.button
+          onClick={() => router.push('/learn')}
+          className="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-neutral-900 transition"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          Start Learning
+        </motion.button>
 
-      {/* Feature Cards */}
+        <motion.button
+          onClick={() => router.push('/roadmap')}
+          className="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-neutral-900 transition"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          View Roadmap
+        </motion.button>
+      </div>
+
+      {/* Features */}
       <motion.div
         className="flex flex-col sm:flex-row gap-4 mt-16 z-10"
         initial="hidden"
@@ -71,9 +88,7 @@ export default function HomePage() {
         variants={{
           hidden: {},
           visible: {
-            transition: {
-              staggerChildren: 0.2,
-            },
+            transition: { staggerChildren: 0.2 },
           },
         }}
       >
@@ -91,7 +106,7 @@ export default function HomePage() {
         ))}
       </motion.div>
 
-      {/* Floating shapes (animated decoration) */}
+      {/* Floating Elements */}
       <motion.div
         className="absolute top-[-30px] left-[10%] w-24 h-24 bg-orange-200 rotate-12 rounded-full opacity-50 z-0"
         animate={{ y: [0, 20, 0] }}

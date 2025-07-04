@@ -19,6 +19,9 @@ export default function Navbar() {
 
       {/* Navigation links */}
       <div className="flex gap-6 text-gray-700 font-medium">
+        <Link href="/roadmap" className="hover:text-black transition">
+          Roadmap
+        </Link>
         <Link href="/learn" className="hover:text-black transition">
           Learn
         </Link>
