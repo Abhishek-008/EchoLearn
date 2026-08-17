@@ -2,7 +2,7 @@
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY!;
-const MODEL = 'llama-prompt-guard-2-22m';
+const MODEL = 'meta-llama/llama-prompt-guard-2-22m';
 
 //
 // 🌐 Generic helper to call Groq API
