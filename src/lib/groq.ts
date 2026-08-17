@@ -2,7 +2,7 @@
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY!;
-const MODEL = 'qwen/qwen3.6-27b';
+const MODEL = 'openai/gpt-oss-120b';
 
 //
 // 🌐 Generic helper to call Groq API
